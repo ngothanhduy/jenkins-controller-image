@@ -4,9 +4,10 @@ GIT_HASH ?= $(shell git rev-parse --short HEAD)
 JENKINS_URL ?= http://localhost:8080/login
 JENKINS_ADMIN_USR ?= admin
 JENKINS_ADMIN_PSW ?= admin
+DOCKERFILE ?= src/Dockerfile
 
 build:
-	@sudo docker build --tag ${APPLICATION_NAME}:${GIT_HASH} .
+	@sudo docker build --tag ${APPLICATION_NAME}:${GIT_HASH} -f ${DOCKERFILE} .
 
 run: build
 	@sudo docker run --rm --name ${APPLICATION_NAME}-machine -d -p 8080:8080 -p 50000:50000 \
@@ -23,7 +24,7 @@ run: build
 stop:
 	@sudo docker stop ${APPLICATION_NAME}-machine
 
-remove: stop
+clean:
 	@sudo docker rmi ${APPLICATION_NAME}:${GIT_HASH}
 
 cp_jobs:
