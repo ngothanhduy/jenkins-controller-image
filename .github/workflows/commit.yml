@@ -1,10 +1,10 @@
 name: Build and Test Jenkins Controller Image Workflow
 on: [push]
 jobs:
-  check-bats-version:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      # - uses: actions/checkout@v5
       
       - name: Build Jenkins Controller Image
         run: make build
