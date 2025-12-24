@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v5
-      
+      - name: Checkout Repository
+        run: git checkout ${{ github.ref }}
       - name: Build Jenkins Controller Image
         run: make build
