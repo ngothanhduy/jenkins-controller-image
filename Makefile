@@ -9,7 +9,7 @@ DOCKERFILE ?= src/Dockerfile
 build:
 	@sudo docker build --tag ${APPLICATION_NAME}:${GIT_HASH} -f ${DOCKERFILE} .
 
-run: build
+deploy:
 	@sudo docker run --rm --name ${APPLICATION_NAME}-machine -d -p 8080:8080 -p 50000:50000 \
 	--env JENKINS_ADMIN_ID=${JENKINS_ADMIN_USR} \
 	--env JENKINS_ADMIN_PASSWORD=${JENKINS_ADMIN_PSW} \
@@ -21,10 +21,10 @@ run: build
 	@echo "Pass:	${JENKINS_ADMIN_PSW}"
 	@echo "==================================="
 
-stop:
+teardown:
 	@sudo docker stop ${APPLICATION_NAME}-machine
 
-clean:
+cleanup:
 	@sudo docker rmi ${APPLICATION_NAME}:${GIT_HASH}
 
 cp_jobs:
